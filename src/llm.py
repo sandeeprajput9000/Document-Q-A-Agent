@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import copy
+import json
 import logging
 import os
 import re
@@ -19,6 +21,38 @@ _STOP_WORDS = {
     "how", "into", "its", "that", "the", "their", "these", "this", "what", "when",
     "where", "which", "with", "would",
 }
+
+
+def _normalize_watsonx_tool_arguments(response: dict[str, Any]) -> dict[str, Any]:
+    """Unwrap Granite tool arguments when the Chat API JSON-encodes them twice.
+
+    Some watsonx Chat API responses contain a JSON string inside the standard
+    ``function.arguments`` JSON string. LangChain expects that field to decode
+    directly to an object, so normalize the response before ChatWatsonx parses it.
+    """
+    normalized = copy.deepcopy(response)
+    for choice in normalized.get("choices", []):
+        message = choice.get("message", {})
+        for tool_call in message.get("tool_calls", []) or []:
+            function = tool_call.get("function", {})
+            arguments = function.get("arguments")
+            if not isinstance(arguments, str):
+                continue
+            candidate = arguments
+            for _ in range(2):
+                try:
+                    decoded = json.loads(candidate)
+                except json.JSONDecodeError:
+                    break
+                if isinstance(decoded, dict):
+                    if candidate != arguments:
+                        function["arguments"] = json.dumps(decoded, ensure_ascii=False)
+                    break
+                if isinstance(decoded, str):
+                    candidate = decoded
+                    continue
+                break
+    return normalized
 
 
 class FakeLLM(BaseChatModel):
@@ -110,7 +144,7 @@ def invoke_with_retry(call: Any, attempts: int = 3, base_seconds: float = 1.0) -
 
 
 def create_chat_model(
-    model_id: str = "ibm/granite-3-8b-instruct",
+    model_id: str = "ibm/granite-4-h-small",
     max_new_tokens: int = 256,
     temperature: float = 0.0,
 ) -> tuple[Any, bool]:
@@ -123,7 +157,19 @@ def create_chat_model(
     try:
         from langchain_ibm import ChatWatsonx
 
-        model = ChatWatsonx(
+        class _CompatibleChatWatsonx(ChatWatsonx):
+            """Normalize watsonx tool arguments before LangChain message parsing."""
+
+            def _create_chat_result(
+                self,
+                response: dict[str, Any],
+                generation_info: dict[str, Any] | None = None,
+            ) -> ChatResult:
+                return super()._create_chat_result(
+                    _normalize_watsonx_tool_arguments(response), generation_info
+                )
+
+        model = _CompatibleChatWatsonx(
             model_id=os.getenv("WATSONX_MODEL_ID", model_id),
             url=os.environ["WATSONX_URL"],
             apikey=os.environ["WATSONX_APIKEY"],

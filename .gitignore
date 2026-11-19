@@ -9,6 +9,7 @@ __pycache__/
 .coverage
 htmlcov/
 data/pdfs/*.pdf
+data/benchmark/questions_draft.json
 data/index/
 data/cache/
 models/

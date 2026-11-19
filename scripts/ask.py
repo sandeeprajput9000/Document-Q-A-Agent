@@ -22,7 +22,8 @@ def main() -> int:
     args = parser.parse_args()
     logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
     result = RAGPipeline(config_path=args.config).ask(args.question)
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    # Escape non-ASCII characters so Windows consoles using cp1252 can print safely.
+    print(json.dumps(result, ensure_ascii=True, indent=2))
     return 0
 
 

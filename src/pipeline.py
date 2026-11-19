@@ -41,7 +41,7 @@ class RAGPipeline:
         self.embedder = embedder
         if llm is None:
             self.llm, self.watsonx_enabled = create_chat_model(
-                model_id="ibm/granite-3-8b-instruct",
+                model_id="ibm/granite-4-h-small",
                 max_new_tokens=self.settings.max_new_tokens,
                 temperature=self.settings.temperature,
             )
