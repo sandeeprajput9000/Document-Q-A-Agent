@@ -6,5 +6,5 @@ The downloader fetched 25 PDFs containing 908 pages. The baseline configuration 
 
 ## Benchmark status
 
-No experiment grid has run. `data/benchmark/questions.json` contains no manually verified questions, and Watsonx credentials are not configured. Accuracy, p95 latency, and the LLM judge are therefore unreported. After verifying 50 source-linked questions and configuring Watsonx, run `python scripts/run_experiments.py`; the scripts will write observed results here, to `experiments.csv`, and to the accuracy plots.
+No experiment grid has run. `data/benchmark/questions.json` contains no manually verified questions. Watsonx successfully generated 50 source-linked drafts with `ibm/granite-4-h-small`; check every draft against its cited PDF page before promoting it into the verified benchmark. Accuracy, p95 latency, and the LLM-judge results are therefore unreported. After the manual review, run `python scripts/run_experiments.py`; the scripts will write observed results here, to `experiments.csv`, and to the accuracy plots.
 
