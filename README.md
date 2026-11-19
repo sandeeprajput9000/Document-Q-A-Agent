@@ -49,7 +49,7 @@ On macOS/Linux, use `python3 -m venv .venv` and `source .venv/bin/activate` inst
 
 ## Watsonx setup
 
-Copy `.env.example` to `.env` and replace the placeholders with your IBM watsonx.ai API key, service URL, and project ID. The model defaults to `ibm/granite-3-8b-instruct`; set `WATSONX_MODEL_ID` in `.env` to select another tool-calling capable chat model available to your project.
+Copy `.env.example` to `.env` and replace the placeholders with your IBM watsonx.ai API key, service URL, and project ID. The model defaults to `ibm/granite-4-h-small`; set `WATSONX_MODEL_ID` in `.env` to select another tool-calling capable chat model available to your project. Model availability varies by watsonx.ai region and project.
 
 ```powershell
 Copy-Item .env.example .env
@@ -135,7 +135,7 @@ Outputs are written from actual runs to `results/experiments.csv`, `results/per_
 
 Real smoke run: the downloader fetched **25 PDFs (908 pages)**, and the index build produced **1,258 chunks**. The sample question `What does the Longformer paper propose for processing long documents?` returned a cited extract from `longformer.pdf`, page 10. Warm retrieval plus the offline extractive `FakeLLM` took **0.090 seconds** for that single query on this machine.
 
-This is one retrieval/fallback smoke query, not a 50-question benchmark or a Watsonx generation measurement. No accuracy, p95, or Watsonx latency result is recorded: Watsonx settings are present in the local `.env`, but the Python TLS connection failed during the IAM token request, before the credentials could be validated. The verified benchmark file is still empty. Run the benchmark workflow above after resolving the TLS connection to produce those results; scripts do not insert sample or estimated metrics.
+This is one retrieval/fallback smoke query, not a 50-question benchmark. Watsonx successfully generated **50 draft Q&A pairs** with `ibm/granite-4-h-small`; they are in `data/benchmark/questions_draft.json` and each is marked for manual review. The verified `questions.json` is still empty, so no accuracy, p95, LLM-judge, or benchmark latency results are recorded. Verify each draft against its cited PDF page before moving it into the benchmark; scripts do not insert sample or estimated metrics.
 
 ## Tests
 
