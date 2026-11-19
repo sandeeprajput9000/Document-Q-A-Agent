@@ -1,0 +1,2 @@
+config_id,experiment,chunk_size,chunk_overlap,top_k,embedding_model,question_count,heuristic_accuracy,heuristic_accuracy_std,llm_judge_accuracy,llm_judge_accuracy_std,llm_judged_count,latency_mean_s,latency_std_s,latency_p50_s,latency_p95_s
+
