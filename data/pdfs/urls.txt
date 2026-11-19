@@ -1,0 +1,27 @@
+# filename<TAB>direct PDF URL. Sample PDFs are downloaded locally and ignored by Git.
+attention_is_all_you_need.pdf	https://arxiv.org/pdf/1706.03762
+bert_pretraining.pdf	https://arxiv.org/pdf/1810.04805
+gpt3_language_models.pdf	https://arxiv.org/pdf/2005.14165
+clip.pdf	https://arxiv.org/pdf/2103.00020
+retrieval_augmented_generation.pdf	https://arxiv.org/pdf/2005.11401
+switch_transformers.pdf	https://arxiv.org/pdf/2101.03961
+chain_of_thought.pdf	https://arxiv.org/pdf/2201.11903
+react_reasoning_acting.pdf	https://arxiv.org/pdf/2210.03629
+constitutional_ai.pdf	https://arxiv.org/pdf/2212.08073
+llama.pdf	https://arxiv.org/pdf/2302.13971
+gpt4_technical_report.pdf	https://arxiv.org/pdf/2303.08774
+dpo.pdf	https://arxiv.org/pdf/2305.18290
+llama2.pdf	https://arxiv.org/pdf/2307.09288
+attention_free_transformer.pdf	https://arxiv.org/pdf/2105.14103
+efficient_memory_transformers.pdf	https://arxiv.org/pdf/2006.16236
+low_rank_adaptation.pdf	https://arxiv.org/pdf/2106.09685
+instructgpt.pdf	https://arxiv.org/pdf/2203.02155
+flamingo.pdf	https://arxiv.org/pdf/2204.14198
+latent_diffusion.pdf	https://arxiv.org/pdf/2112.10752
+tree_of_thoughts.pdf	https://arxiv.org/pdf/2305.10601
+diffusion_models.pdf	https://arxiv.org/pdf/2006.11239
+alibi.pdf	https://arxiv.org/pdf/2108.12409
+longformer.pdf	https://arxiv.org/pdf/2004.05150
+deberta.pdf	https://arxiv.org/pdf/2006.03654
+sentence_transformers.pdf	https://arxiv.org/pdf/1908.10084
+

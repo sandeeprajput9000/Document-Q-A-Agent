@@ -1,0 +1,17 @@
+chunk_size: 1024
+chunk_overlap: 0
+top_k: 2
+embedding_model: sentence-transformers/all-MiniLM-L6-v2
+embedding_batch_size: 32
+embedding_max_length: 512
+max_new_tokens: 256
+temperature: 0.0
+retry_attempts: 3
+retry_base_seconds: 1.0
+paths:
+  pdf_dir: data/pdfs
+  index_dir: data/index
+  benchmark_file: data/benchmark/questions.json
+  results_dir: results
+  model_cache_dir: data/cache/models
+
